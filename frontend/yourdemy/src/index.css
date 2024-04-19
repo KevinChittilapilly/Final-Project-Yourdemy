@@ -1,0 +1,474 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+
+body,
+h2,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: white;
+  color: black;
+  padding: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  font-family: Calibri;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+nav ul li {
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.featured-courses {
+  padding: 20px;
+  text-align: center;
+  padding-bottom: 500px;
+}
+.featured-courses h1{
+  font-size: 3em;
+}
+#userid {
+  display: flex;
+}
+.course-item .bottom-div .title {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.course-item .bottom-div .dropdown{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.course-item .price-div{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.course-item .price-div .go-to-course{
+  background-color: #a435f0;
+  font-weight: bold;
+  text-decoration: white;
+  width: 150px;
+  height: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.course-item {
+  background-color: white;
+  margin: 10px;
+  display: inline-block;
+  width: calc(27% - 20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+}
+.course-item .course-title{
+  font-family: cursive;
+}
+.search-container {
+  text-align: center;
+  min-width: 300px;
+  width: 40%;
+}
+/* 
+.search-container form {
+    display: inline-block;
+    position: relative;
+} */
+nav .right-items{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  float: right;
+  position: absolute;
+  right: 0px;
+}
+
+.search-container input[type="text"] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+.search-container button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196f3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+.search-container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.material-symbols-outlined {
+  display: flex;
+  float: inline-end;
+  margin-left: 3px;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Adjust as necessary */
+  background-color: #ffffff; /* Or any other color you'd like for the base */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.banner-image {
+  position: absolute;
+  bottom: 0;
+  width: 70%; /* Adjust the width as needed */
+  height: 100%;
+  background-image: url("../../../assets/banner.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.banner-image::before {
+  content: "";
+  position: absolute;
+  left: -50px; /* Overlap size */
+  top: 0;
+  width: 50px; /* Equal to the negative left value */
+  height: 100%;
+  background-color: #00aabb; /* Your chosen color for the side panel */
+  z-index: -1;
+}
+.course-item .course_img {
+  display: block;
+  transition: opacity linear 100ms;
+  width: 100%;
+  max-width: 100%;
+  height: 160px;
+}
+.course-item :hover{
+  cursor: pointer;
+}
+.course-item .bottom-div{
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  padding: 10px;
+}
+.course-item .instructer{
+  color: #aabec3;
+}
+body{
+  background-color: #d8e9ef;
+  font-family: Calibri;
+}
+footer{
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* Login Page CSS starts */
+
+.container {
+  background-color: #fff;
+  width: 600px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align:center;
+  justify-content: center;
+  font-family: Calibri;
+  font-size: 25px;
+
+}
+
+.rewards-container {
+  background-color: #fff;
+  width: 800px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align:center;
+  /* justify-content: center; */
+  font-family: Calibri;
+}
+
+.rewards-container .rewards{
+ text-align: left;
+ width: 20%;
+}
+
+.rewards-container {
+  background-color: #fff;
+  width: 800px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align:center;
+  /* justify-content: center; */
+  font-family: Calibri;
+}
+
+.rewards-container .rewards{
+ text-align: left;
+ width: 20%;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  font-family: Calibri;
+  padding-bottom: 20px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="radio"],
+input[type="checkbox"]
+button {
+  display: block;
+  width: 90%;
+  padding: 20px;
+  /* margin-bottom: 10px; */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border:#333;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  box-shadow:#333;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Course page CSS starts */
+.outer-div {
+  display: flex;
+  flex: 1;
+}
+.course-page{
+  flex: 0.8;
+}
+.sidebar{
+  background-color: #f1f1f1;
+  min-height: max-content;
+  flex: 0.2;
+
+}
+.course-page .dashboard{
+  padding-bottom: 500px;
+  background-color: white;
+}
+.video-wrapper .video-controller{
+  width: 100%;
+}
+.sidebar .top-banner{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-weight: bold;
+  border: 1px solid #d1d7dc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* Style the accordion and the panels */
+.accordion {
+  background-color: white;
+  /* border-left: 3px solid grey; */
+}
+
+.accordion-item {
+  border-bottom: 1px solid #ddd;
+  background-color: #f1f1f1;
+}
+
+.accordion-item .accordion-button {
+  background-color: #f1f1f1;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  font-size: 16px;
+  /* display: flex;
+  justify-content: space-between; */
+}
+
+.accordion-item .accordion-button .title{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS on click) */
+.accordion-item .accordion-button.active, .accordion-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+/* Style the content inside the panel */
+.panel p {
+  margin: 18px 0;
+  font-size: 14px;
+  color: #555;
+}
+.dashboard .top-bar{
+  display: flex;
+  border-bottom: 1px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px
+
+}
+.dashboard .top-bar p{
+  margin: 0px;
+  margin-left: 30px;
+  color: #a2a7ab;
+  
+}
+.dashboard .top-bar p:hover{
+  cursor: pointer;
+}
+
+input[type="radio"],
+label {
+    display: inline-block;
+    margin-right: 10px;
+}
+.feedbackform input[type="radio"],
+label{
+  width: fit-content;
+}
+
+.signup input {
+  margin-bottom: 10px;
+}
+.login input {
+  margin-bottom: 10px;
+}
+.feedbackform #suggestions{
+  width: 100%;
+}
+@media screen and (max-width: 600px) {
+  .container{
+    width: 60%;
+  }
+  nav .right-items {
+    justify-content: start;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: start;
+  }
+  nav ul {
+    align-items: start;
+    flex-direction: column;
+  }
+  nav #interactive-mode{
+    margin: 0 0 0 10px;
+  }
+  .feedbackform {
+    font-size: 20px;
+  }
+  .course-item{
+    width: auto;
+  }
+  /* .outer-div .sidebar {
+    order: 1;
+  }
+  .outer-div .course-page{
+    order: 2;
+  } */
+  .outer-div{
+    flex-direction: column-reverse;
+  }
+  .outer-div .top-bar{
+    overflow: hidden;
+  }
+  .dashboard .content {
+    padding: 10px;
+  }
+  .accordion-item .accordion-button{
+    font-size: 12px;
+    padding: 0px;
+  }
+  .login {
+    width: fit-content;
+    margin: 20px;
+  }
+  .login h2 {
+    font-size: 20px;
+  }
+  .login input{
+    width: fit-content;
+  }
+  .container{
+    font-size: 20px;
+  }
+  .container input{
+    width: fit-content;
+  }
+}
