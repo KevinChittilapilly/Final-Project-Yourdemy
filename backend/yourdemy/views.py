@@ -5,7 +5,9 @@ from django.http.response import JsonResponse
 from .models import User, Courses
 from .serializers import UserSerializer, CourseSerializer
 from rest_framework import status
-# Create your views here.
+from django.contrib.auth import authenticate, login
+import tkinter as tk
+from tkinter import messagebox
 
 
 class UserView(APIView):
@@ -25,7 +27,43 @@ class UserView(APIView):
         serialaizer = UserSerializer(data, many=True)
 
         return Response(serialaizer.data)
+    
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data.get("email")
+        password = request.data.get("password")
 
+        print("Received login request for email:", email)
+        print("Received login request with password:", password)
+
+        user = User.objects.get(email="elnu@purdue.edu")
+        if user is not None and user.password == password:
+            print("Successful Login!")
+            messagebox.showinfo("Successful Login!")
+        elif user is not None and user.password != password:
+            print("Incorrect password!")
+        else:
+            print("Email doesn't exist, Please signup.")
+                
+        # user = authenticate(request.data, email=email, password=password)
+        # if user is not None:
+        #     # login(request, user)
+        #     print('login ho gya')
+        #     # Redirect to a success page.
+        # else:
+        #     # Return an 'invalid login' error message.
+        #     print('login nahi hua')
+
+        # user = authenticate(email=email, password=password)
+
+        # print(user)
+
+        # if not user:
+        #     return Response({'error': 'Invalid Credentials'},
+        #                     status=status.HTTP_404_NOT_FOUND)
+
+        # login(request, user)
+        # return Response(UserSerializer(user).data)
 
 class CourseView(APIView):
     def get(self, request,id=None):

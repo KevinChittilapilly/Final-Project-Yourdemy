@@ -11,7 +11,7 @@ function Signup() {
     const handleSignup = async (e) => {
       e.preventDefault();
       const userData = {
-        full_name: fullName,
+        name: fullName,
         email: email,
         password: password,
         interactive_mode: interactiveMode,
