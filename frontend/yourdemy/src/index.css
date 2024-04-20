@@ -472,3 +472,14 @@ label{
     width: fit-content;
   }
 }
+.sidebar-open{
+  height: fit-content;
+  width: fit-content;
+  position: absolute;
+  background:#2d2f31;
+  right: 0;
+  margin-top: 50px;
+  border: 1px solid #6a6f73;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+}

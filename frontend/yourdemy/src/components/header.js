@@ -1,12 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate()
+
+  const onHeaderClick = (link) =>{
+    navigate("/"+link)
+  }
   return (
     <header>
       <nav>
         <ul>
-          <li><a href="home.html" style={{ color: 'blueviolet', fontSize: '25px' }}>YourDemy</a></li>
-          <li><a href="feedback.html">Feedback</a></li>
+          <li><a onClick={()=>onHeaderClick('home')} style={{ color: 'blueviolet', fontSize: '25px' }}>YourDemy</a></li>
+          <li><a onClick={()=>onHeaderClick('feedback')}>Feedback</a></li>
           <div className="search-container">
             <input type="text" placeholder="Search.." name="search" />
           </div>
@@ -19,8 +25,8 @@ function Header() {
               <span className="material-symbols-outlined"> shopping_cart </span>
             </li>
             <span id="userid">
-              <li><a href="login.html">Login</a></li>
-              <li><a href="signup.html">Sign Up</a></li>
+              <li><a onClick={()=>onHeaderClick('login')}>Login</a></li>
+              <li><a onClick={()=>onHeaderClick('signup')}>Sign Up</a></li>
             </span>
           </div>
         </ul>

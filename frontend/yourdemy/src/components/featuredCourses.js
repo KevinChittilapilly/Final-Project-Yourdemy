@@ -1,59 +1,43 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
+import { getCourses } from '../action/actions';
+import { useNavigate } from 'react-router-dom';
 
 function FeaturedCourses() {
-  const [courses,setCourses] = useState([ {
-    name: "Web Development Bootcamp",
-    instructor: "Colt Steele",
-    price: "$500",
-    rating: "5",
-    img_url: "../assets/course_1.png",
-  },
-  {
-    name: "JavaScript: Understanding the Weird Parts",
-    instructor: "Anthony Alicea",
-    price: "$500",
-    rating: "4",
-    img_url: "../assets/course_2.jpeg",
-  },
-  {
-    name: "Modern React with Redux",
-    instructor: "Stephen Grider",
-    price: "$500",
-    rating: "3",
-    img_url: "../assets/course_3.jpeg",
-  },
-  {
-    name: "Python Django",
-    instructor: "Stephen Grider",
-    price: "$500",
-    rating: "3",
-    img_url: "../assets/course_3.jpeg",
-  },])
-  const API_BASE_URL = "http://127.0.0.1:8000/";
+  const [courses,setCourses] = useState([ ])
+  const navigate  = useNavigate()
 
   useEffect(()=>{
-    axios.get(API_BASE_URL+'course/').then((resp)=>{
-      // console.log(data)
-      setCourses(JSON.parse(JSON.stringify(resp.data)))
-    }).catch(
-      console.log("Error")
-    )
+    getCourses().then(data => {
+      setCourses(data);
+  });
   },[])
+
+  function ratingToStars(rating) {
+    let stars = "";
+    for (let i = 0; i < rating; i++) {
+      stars += "★";
+    }
+    return stars;
+  }
+
   return (
     <section className="featured-courses">
       <h1>Featured Courses</h1>
       <div id="courses-list">
-        {console.log(courses)}
-        {courses.map((course)=>{
+        {courses?.map((course)=>{
           return(
-            <div className='course-item'>
-              <img src={course.img_url} class="course_img"/>
-              <h4 class="course-title">{course.title}</h4>
-              <div class="bottom-div">
-              <p class="instructer">Instructor: {course.instructor}</p>
+            <div className='course-item' onClick={()=>navigate('/courses/'+course.course_id,{
+              state: {
+                course_id : course.course_id
+              }
+            })}>
+              <img src={course.img_url} alt='course_img' className="course_img"/>
+              <h4 className="course-title">{course.title}</h4>
+              <div className="bottom-div">
+              <p className="instructer">Instructor: {course.instructor}</p>
               <p>Price: {course.price}</p>
-              {/* <p>Rating: ${ratingToStars(course.rating)}</p> */}
+              <p>Rating: {ratingToStars(course.rating)}</p>
               </div>
             </div>
           )
