@@ -8,6 +8,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
     interactive_mode = models.BooleanField(default=False)
+    special_offers = models.BooleanField(default=False)
 
 
 class Courses(models.Model):
@@ -46,3 +47,4 @@ class VideoLecture(models.Model):
 
     def __str__(self):
         return self.title
+    

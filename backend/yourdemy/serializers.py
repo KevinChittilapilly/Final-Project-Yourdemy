@@ -7,8 +7,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-
-
 class VideoLectureSerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoLecture
