@@ -49,3 +49,30 @@ class VideoLecture(models.Model):
     def __str__(self):
         return self.title
     
+class Feedback(models.Model):
+    LENGTH_CHOICES = [
+        ('15', '15 mins'),
+        ('20', '20 mins'),
+        ('10', '10 mins'),
+        ('25', '25 mins'),
+        ('30', '30 mins'),
+    ]
+
+    QUIZ_CHOICES = [
+        ('15', 'Quiz every 15 mins'),
+        ('20', 'Quiz every 20 mins'),
+        ('10', 'Quiz half way through'),
+        ('25', 'Quiz at the end of the module'),
+        ('30', 'Quiz at the end of the course'),
+    ]
+    video_chunk_option_suitable = models.BooleanField(default=True)
+    video_length_options = models.CharField(max_length=3, choices=LENGTH_CHOICES, blank=True)
+    quiz_option_suitable = models.BooleanField(default = True)
+    quiz_options = models.CharField(max_length=3, choices=QUIZ_CHOICES, blank=True)
+    suggestions = models.TextField()
+
+    def __str__(self):
+        return f"Feedback: {self.suggestions}"
+
+
+    

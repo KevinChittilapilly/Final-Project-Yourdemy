@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http.response import JsonResponse
-from .models import User, Courses
-from .serializers import UserSerializer, CourseSerializer
+from .models import User, Courses, Feedback
+from .serializers import UserSerializer, CourseSerializer, FeedbackSerializer
 from rest_framework import status
 from django.contrib.auth import authenticate, login
 import tkinter as tk
@@ -80,6 +80,23 @@ class CourseView(APIView):
                 return Response(serializer.data)
             except Courses.DoesNotExist:
                 return Response({'error': 'Course not found ${id}'}, status=status.HTTP_404_NOT_FOUND)
+            
+
+class  FeedbackView(APIView):  
+    def post(self, request):
+        data = request.data
+        serializer = FeedbackSerializer(data=data)
+        print("data", data, serializer.is_valid(), serializer.errors)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse("Feedback Added Successfully", safe=False)
+        return JsonResponse("Failed to Add Feedback", safe=False) 
+    def get(self, request):
+        data = Feedback.objects.all()
+        print(data)
+        serialaizer = FeedbackSerializer(data, many=True)
+
+        return Response(serialaizer.data)
     
         
 

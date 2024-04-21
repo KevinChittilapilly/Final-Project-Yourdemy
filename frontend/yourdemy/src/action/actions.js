@@ -42,3 +42,14 @@ export const loginUser = async (userData) => {
     throw error.response.data;
   }
 }
+
+export const feedbackUser = async (userData) => {
+  try {
+    const response = await axios.post(API_BASE_URL + 'feedback/', userData);
+    console.log(response.data);
+    return response.data;
+  } catch(error) {
+    console.error('Feedback error', error.response.data);
+    throw error.response.data;
+  }
+}
