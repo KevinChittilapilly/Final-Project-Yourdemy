@@ -6,8 +6,7 @@ from .models import User, Courses, Feedback
 from .serializers import UserSerializer, CourseSerializer, FeedbackSerializer
 from rest_framework import status
 from django.contrib.auth import authenticate, login
-import tkinter as tk
-from tkinter import messagebox
+
 
 
 class UserView(APIView):
@@ -39,11 +38,16 @@ class LoginView(APIView):
         user = User.objects.get(email="elnu@purdue.edu")
         if user is not None and user.password == password:
             print("Successful Login!")
-            messagebox.showinfo("Successful Login!")
+            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+
         elif user is not None and user.password != password:
             print("Incorrect password!")
+            return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
         else:
             print("Email doesn't exist, Please signup.")
+            return Response({"error": "Email doesn't exist, Please signup."}, status=status.HTTP_401_UNAUTHORIZED)
+
                 
         # user = authenticate(request.data, email=email, password=password)
         # if user is not None:

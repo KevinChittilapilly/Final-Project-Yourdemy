@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [fullName, setFullName] = useState("");
@@ -7,6 +8,7 @@ function Signup() {
     const [password, setPassword] = useState("");
     const [interactiveMode, setInteractiveMode] = useState(false);
     const [specialOffers, setSpecialOffers] = useState(false);
+    const navigate  = useNavigate()
   
     const handleSignup = async (e) => {
       e.preventDefault();
@@ -21,7 +23,8 @@ function Signup() {
       try {
         const response = await axios.post("http://127.0.0.1:8000/signup/", userData);
         console.log(response.data);
-        // Handle successful signup
+        navigate('/')
+        //TODO remove login signup button and show 'Wecome user name'
       } catch (error) {
         console.error("Signup error:", error.response.data);
         // Handle signup error
@@ -78,6 +81,8 @@ function Signup() {
           </div>
           <br /><br />
           <button type="submit">Sign Up</button>
+          <br />
+          <button type="button" onClick={()=>navigate('/login')}>Login</button>
         </form>
       </div>
     );
