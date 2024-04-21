@@ -32,7 +32,7 @@ function FeaturedCourses() {
                 course_id : course.course_id
               }
             })}>
-              <img src={course.img_url} alt='course_img' className="course_img"/>
+              <img src={course.image_link} alt='course_img' className="course_img"/>
               <h4 className="course-title">{course.title}</h4>
               <div className="bottom-div">
               <p className="instructer">Instructor: {course.instructor}</p>

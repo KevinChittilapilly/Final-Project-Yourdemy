@@ -22,6 +22,7 @@ class Courses(models.Model):
     about = models.TextField(default="")
     description = models.TextField(default="")
     instrs_des = models.TextField(default="")
+    image_link = models.CharField(max_length=500, default="https://example.com/default-image.jpg")
 
 class Section(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='sections')
