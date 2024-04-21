@@ -32,7 +32,10 @@ function FeaturedCourses() {
                 course_id : course.course_id
               }
             })}>
-              <img src={course.image_link} alt='course_img' className="course_img"/>
+              <img src="https://drive.google.com/thumbnail?id=18ygY2cG3oEf5sbU0wXhrj90Vkdn3tCEH" alt='course_img' className="course_img"/>
+              {/* <img src="https://drive.google.com/file/d/18ygY2cG3oEf5sbU0wXhrj90Vkdn3tCEH/" alt="Descriptive Text"  className="course_img"/>
+              https://drive.google.com/file/d/18ygY2cG3oEf5sbU0wXhrj90Vkdn3tCEH/view?usp=sharing */}
+
               <h4 className="course-title">{course.title}</h4>
               <div className="bottom-div">
               <p className="instructer">Instructor: {course.instructor}</p>

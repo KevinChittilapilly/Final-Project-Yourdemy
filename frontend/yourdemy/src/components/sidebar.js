@@ -10,14 +10,19 @@ function Sidebar(props) {
     }));
   };
   const handleClose = () => {
-    console.log('clicked')
-    props.handleSidebar()
-  }
+    props.handleSidebar();
+  };
   return (
     <div className="sidebar">
       <div className="top-banner">
         <div className="title">Course content</div>
-        <span className="material-symbols-outlined" onClick={()=>handleClose()}> close </span>
+        <span
+          className="material-symbols-outlined"
+          onClick={() => handleClose()}
+        >
+          {" "}
+          close{" "}
+        </span>
       </div>
       {props?.sections?.map((section) => {
         return (
@@ -46,7 +51,14 @@ function Sidebar(props) {
               >
                 {section.video_lectures?.map((lec) => {
                   return (
-                    <p>
+                    <p
+                      style={
+                        lec == props.activeCourse
+                          ? { textDecoration: "underline", color: "#6b1ca5" }
+                          : { cursor: "pointer" }
+                      }
+                      onClick={() => props.handleCourseClick(lec, section.id)}
+                    >
                       {" "}
                       <span class="material-symbols-outlined">check_box</span>
                       {lec.title}
@@ -58,6 +70,18 @@ function Sidebar(props) {
           </div>
         );
       })}
+      <div className="mark-div">
+        <button
+          className="mark-complete"
+          style={props.courseCompleted ? { opacity: "0.3" } : null}
+          disabled={props.courseCompleted}
+          onClick={
+            !props.courseCompleted ? () => props.handleCourseCompletion() : null
+          }
+        >
+          {!props.courseCompleted ? "Mark as Complete" : "Completed"}
+        </button>
+      </div>
     </div>
   );
 }

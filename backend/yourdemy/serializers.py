@@ -1,13 +1,17 @@
 from rest_framework import serializers
-from .models import  User,Courses,VideoLecture,Section,Feedback
+from .models import  User,Courses,VideoLecture,Section,Feedback,QuizQuestions
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-
+class QuizQuestionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizQuestions
+        fields = '__all__'
 class VideoLectureSerializer(serializers.ModelSerializer):
+    quiz_questions = QuizQuestionsSerializer(many=True, read_only=True)
     class Meta:
         model = VideoLecture
         fields = '__all__'
@@ -29,3 +33,4 @@ class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
         fields = '__all__'
+

@@ -1,14 +1,65 @@
-// VideoWrapper.js
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import Popover from "./popover";
 
-function VideoWrapper() {
+function VideoWrapper(props) {
+  const { course } = props;
+  const [showPopup, setShowPopup] = useState(false);
+  
+  useEffect(() => {
+    // Function to create a YouTube player
+    const createPlayer = () => {
+      if (window.YT && window.YT.Player) {
+        // Destroy existing player if there is one
+        if (window.player) {
+          window.player.destroy();
+        }
+
+        window.player = new window.YT.Player("youtube-player", {
+          videoId: course.video_url.split("v=")[1],
+          events: {
+            onStateChange: onPlayerStateChange,
+          },
+        });
+      }
+    };
+
+    // Load the IFrame Player API code asynchronously if it's not already available.
+    if (!window.YT) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      window.onYouTubeIframeAPIReady = createPlayer;
+    } else {
+      createPlayer();
+    }
+
+    // Cleanup function to potentially destroy the player when the component unmounts
+    return () => {
+      if (window.player) {
+        window.player.destroy();
+      }
+    };
+  }, [course.video_url]); // Effect runs when course.video_url changes.
+
+  const onPlayerStateChange = (event) => {
+    if (event.data === window.YT.PlayerState.PLAYING) {
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+      }, 3000); // Set a timer to show the popup after 5 minutes
+
+      return () => clearTimeout(timer);
+    }
+  };
+  const closePopover = () =>{
+    setShowPopup(false)
+  }
   return (
     <div className="video-wrapper">
-      <video controls className="video-controller">
-        <source src="path/to/your-video.mp4" type="video/mp4" />
-        <source src="path/to/your-video.ogg" type="video/ogg" />
-        Your browser does not support the video tag.
-      </video>
+      <div id="youtube-player" className="video-controller"></div>
+      {showPopup && (
+        <Popover type="courseDuration" closePopover={closePopover}/>
+      )}
     </div>
   );
 }

@@ -74,7 +74,7 @@ class CourseView(APIView):
             return Response(serialaizer.data)
         else:
             try:
-                course = Courses.objects.prefetch_related('sections__video_lectures').get(course_id=id)
+                course = Courses.objects.prefetch_related('sections__video_lectures__quiz_questions').get(course_id=id)
                 serializer = CourseSerializer(course)
                 print(serializer)
                 return Response(serializer.data)

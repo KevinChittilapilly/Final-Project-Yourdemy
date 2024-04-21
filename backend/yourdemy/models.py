@@ -9,6 +9,8 @@ class User(models.Model):
     password = models.CharField(max_length=100)
     interactive_mode = models.BooleanField(default=False)
     special_offers = models.BooleanField(default=False)
+    duration = models.IntegerField(default=5)
+    quiz_location = models.TextField(default="End of Section")
 
 
 class Courses(models.Model):
@@ -75,4 +77,14 @@ class Feedback(models.Model):
         return f"Feedback: {self.suggestions}"
 
 
-    
+class QuizQuestions(models.Model):
+    ques_id = models.AutoField(primary_key=True)
+    lecture = models.ForeignKey(VideoLecture, on_delete=models.CASCADE, related_name='quiz_questions')
+    title = models.TextField()
+    order = models.IntegerField(help_text="The order in which video lectures are displayed")
+
+    class Meta:
+        ordering = ['order']  # Ensures video lectures are ordered by 'order' by default
+
+    def __str__(self):
+        return self.title
