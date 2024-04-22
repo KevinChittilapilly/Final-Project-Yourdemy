@@ -7,12 +7,12 @@ import { getCoursesDetails } from "../action/actions";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./loading";
 import { quizLocation } from "./util";
-import popover from "./popover";
 import Popover from "./popover";
+import useMobile from "../hooks/useMobile";
 
 function CoursePage() {
   const [courseDetails, setCourseDetail] = useState();
-  const [sidebaropen, setSidebarOpen] = useState(true);
+  
   const [activeCourse, setActiveCourse] = useState();
   const [activeSecID, setActiveSecID] = useState(1)
   const [courseCompleted, setCourseCompleted] = useState(false)
@@ -21,7 +21,8 @@ function CoursePage() {
   const quiz_location = "End of Course"
   const { state } = useLocation();
   const course_id = state.course_id || "";
-  
+  const isMobile = useMobile();
+  const [sidebaropen, setSidebarOpen] = useState(!isMobile);
   useEffect(() => {
     getCoursesDetails(course_id).then((resp) => {
       setCourseDetail(resp);
@@ -50,9 +51,7 @@ function CoursePage() {
     setActiveSecID(id)
   }
 
-  const isFirstSectionOver = () => {
-    
-  }
+  
   useEffect(()=>{
     if (quiz_location==quizLocation.endofSection && activeSecID!=1) {
       let questions = []
@@ -94,6 +93,7 @@ function CoursePage() {
           about={courseDetails.about}
           description={courseDetails.description}
           instrs_des={courseDetails.instrs_des}
+          title ={courseDetails.title}
         />
       </div>
       {sidebaropen ? (
@@ -107,12 +107,13 @@ function CoursePage() {
         />
       ) : (
         <div className="sidebar-open">
-          <span
+          
+          {isMobile?<text onClick={()=>handleSidebar()}>Lecture List</text>:<span
             class="material-symbols-outlined"
             onClick={() => handleSidebar()}
           >
             arrow_back
-          </span>
+          </span>}
         </div>
       )}
       {showQuizPopover && <Popover type="quizes" setShowPopup={closePopover} content={showQuizPopover}/>}

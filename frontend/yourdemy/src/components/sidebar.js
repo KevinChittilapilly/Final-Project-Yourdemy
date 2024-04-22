@@ -24,6 +24,7 @@ function Sidebar(props) {
           close{" "}
         </span>
       </div>
+      <div className="accordian-outer-div">
       {props?.sections?.map((section) => {
         return (
           <div className="accordion">
@@ -81,6 +82,7 @@ function Sidebar(props) {
         >
           {!props.courseCompleted ? "Mark as Complete" : "Completed"}
         </button>
+      </div>
       </div>
     </div>
   );

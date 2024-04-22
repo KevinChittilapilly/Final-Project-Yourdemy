@@ -12,7 +12,8 @@ function Dashboard(props) {
       </div>
       <div className="content">
         <div>
-          <h3>About this Course</h3>
+          <h3>About this Course: {props.title}</h3>
+          
           <p>
             {props.about}
           </p>

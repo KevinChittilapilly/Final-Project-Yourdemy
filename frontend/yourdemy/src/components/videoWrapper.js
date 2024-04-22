@@ -58,7 +58,7 @@ function VideoWrapper(props) {
     <div className="video-wrapper">
       <div id="youtube-player" className="video-controller"></div>
       {showPopup && (
-        <Popover type="courseDuration" closePopover={closePopover}/>
+        <Popover type="courseDuration" setShowPopup={closePopover}/>
       )}
     </div>
   );

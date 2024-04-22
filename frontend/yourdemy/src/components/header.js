@@ -1,12 +1,46 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useMobile from "../hooks/useMobile";
+import MenuHeader from "./menuHeader";
 
 function Header() {
   const navigate = useNavigate()
-  let isAuthenticated = sessionStorage.getItem("isAuthenticated")
-
+  const isMobile = useMobile();
+  const [menuOpen,setMenuOpen] = useState(false)
+  const handleMenuOpen = () => {
+    setMenuOpen(!menuOpen)
+  }
+  const isAuthenticated = sessionStorage.getItem("isAuthenticated")
+  const userData = JSON.parse(sessionStorage.getItem("userData"))
   const onHeaderClick = (link) =>{
+    setMenuOpen(false)
     navigate("/"+link)
+  }
+  if (isMobile) {
+    return (
+      <header>
+        <nav>
+          <ul>
+            <div className="menu-div">
+              <li>
+                <a
+                  onClick={() => onHeaderClick("home")}
+                  style={{ color: "blueviolet", fontSize: "25px" }}
+                >
+                  YourDemy
+                </a>
+              </li>
+              <span class="material-symbols-outlined" onClick={()=>handleMenuOpen()}>menu</span>
+            </div>
+
+            <div className="search-container">
+              <input type="text" placeholder="Search.." name="search" />
+            </div>
+          </ul>
+        </nav>
+        {menuOpen && <MenuHeader userData={userData} isAuthenticated={isAuthenticated} handleMenuOpen={handleMenuOpen} onHeaderClick={onHeaderClick}/>}
+      </header>
+    );
   }
   return (
     <header>
@@ -40,5 +74,6 @@ function Header() {
     </header>
   );
 }
+
 
 export default Header;

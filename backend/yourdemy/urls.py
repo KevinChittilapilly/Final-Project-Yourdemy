@@ -6,5 +6,6 @@ urlpatterns = [
     path('courses/',CourseView.as_view()),
     path('courses/<int:id>/', CourseView.as_view(), name='course-detail'),
     path('login/', LoginView.as_view()),
-    path('feedback/', FeedbackView.as_view())
+    path('feedback/', FeedbackView.as_view()),
+    path('user/<int:id>/', UserView.as_view(),),
 ]

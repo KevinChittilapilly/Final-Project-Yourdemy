@@ -20,12 +20,24 @@ class UserView(APIView):
             return JsonResponse("User Added Successfully", safe=False)
         return JsonResponse("Failed to Add User", safe=False)
 
-    def get(self, request):
-        data = User.objects.all()
-        print(data)
-        serialaizer = UserSerializer(data, many=True)
+    def get(self, request,id=None):
+        if(id==None):
+            data = User.objects.all()
+            print(data)
+            serialaizer = UserSerializer(data, many=True)
 
-        return Response(serialaizer.data)
+            return Response(serialaizer.data)
+        else:
+            # Fetch a single user by ID
+            try:
+                user = User.objects.get(pk=id)
+                serializer = UserSerializer(user)
+                del serialaizer.data.password
+                return Response(serializer.data)
+            except User.DoesNotExist:
+                # Return an error response if no user is found
+                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
     
 class LoginView(APIView):
     def post(self, request):
@@ -38,7 +50,8 @@ class LoginView(APIView):
         user = User.objects.get(email="elnu@purdue.edu")
         if user is not None and user.password == password:
             print("Successful Login!")
-            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+            serializer = UserSerializer(user)
+            return Response({"message": "Login successful","user":serializer.data}, status=status.HTTP_200_OK)
 
         elif user is not None and user.password != password:
             print("Incorrect password!")

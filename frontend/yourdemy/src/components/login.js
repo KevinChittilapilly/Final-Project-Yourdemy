@@ -16,20 +16,23 @@ function Login() {
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/login/", userData);
-      console.log(response.data);
+      console.log(response.data.user);
       console.log('Successful login!!');
       sessionStorage.setItem("isAuthenticated", true);
-      sessionStorage.setItem("userEmail", response.data.email)
-      navigate('/')
+      sessionStorage.setItem("userEmail", userData.email)
+      sessionStorage.setItem("userData",JSON.stringify(response.data.user))
+      navigate('/home')
       //TODO remove login signup button and show 'Wecome user name'
 
     } catch (error) {
-      console.error("Login error:", error.response.data);
+      // console.error("Login error:", error.response);
       // Handle login error
+      console.log("Login error")
     }
   };
 
   return (
+    <div style={{height: '100vh'}}>
     <div className="container login">
       <h2>Login to YourDemy</h2>
       <form onSubmit={handleLogin}>
@@ -53,6 +56,7 @@ function Login() {
         <br />
         <button type="button" onClick={()=>navigate('/signup')}>Sign Up</button>
       </form>
+    </div>
     </div>
   );
 }

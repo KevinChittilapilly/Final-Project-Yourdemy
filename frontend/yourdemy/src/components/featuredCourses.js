@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 function FeaturedCourses() {
   const [courses,setCourses] = useState([ ])
   const navigate  = useNavigate()
-
+  
   useEffect(()=>{
     getCourses().then(data => {
-      setCourses(data);
+      setCourses(data[0].data);
   });
   },[])
 
@@ -22,10 +22,60 @@ function FeaturedCourses() {
   }
 
   return (
+    <>
+    <div class="banner-container">
+      <div class="banner-image"></div>
+    </div>
+   
     <section className="featured-courses">
       <h1>Featured Courses</h1>
       <div id="courses-list">
         {courses?.map((course)=>{
+          if (true) {
+            return (
+              <div className='course-item'>
+              <img src={course.img_url} class="course_img"/>
+        <h4 class="course-title">{course.name}</h4>
+        <div class="bottom-div">
+        <div class="title">
+        <p class="instructer">Instructor: {course.instructor}</p>
+        <div class="dropdown">
+        <label for="duration1">Duration</label>
+        <select id="duration1">
+          <option>2 mins</option>
+          <option>5 mins</option>
+          <option>7 mins</option>
+          <option>10 mins</option>
+          <option>15 mins</option>
+          <option>30 mins</option>
+        </select>
+      </div>
+        </div>
+        <div class="price-div">
+        <p>Price: ${course.price}</p>
+        <div class="dropdown">
+        <label for="duration1">Quiz Location</label>
+        <select id="duration1">
+          <option>In between the lecture</option>
+          <option>At the end of the lecture</option>
+          <option>At the end of the module</option>
+          <option>At the end of the course</option>
+        </select>
+        </div>
+        </div>
+        <div class="price-div">
+        <p>Rating: {ratingToStars(course.rating)}</p>
+        <button class="go-to-course" id="goToCourseButton" onClick={()=>navigate('/courses/'+course.course_id,{
+              state: {
+                course_id : course.course_id
+              }
+            })}> Go to Course </button>
+        </div>
+        </div>
+        </div>
+        
+            )
+          }
           return(
             <div className='course-item' onClick={()=>navigate('/courses/'+course.course_id,{
               state: {
@@ -47,6 +97,7 @@ function FeaturedCourses() {
         })}
       </div>
     </section>
+    </>
   );
 }
 

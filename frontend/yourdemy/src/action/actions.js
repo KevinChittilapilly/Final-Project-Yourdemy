@@ -3,22 +3,31 @@ import axios from "axios";
 const API_BASE_URL = "http://127.0.0.1:8000/";
 
 export const getCourses =  () => {
-     return axios.get(API_BASE_URL+'courses/').then((resp)=>{
-        console.log(resp)
-        return resp.data
-      }).catch(
-        console.log("Error")
-      )
+    let userid = sessionStorage.getItem("userid")||1
+    const request = [
+      axios.get(API_BASE_URL+'courses/'),
+      axios.get(API_BASE_URL+'user/'+userid)
+    ]
+    return axios.all(request)
+    .then(axios.spread((coursesResponse, userResponse) => {
+      console.log([coursesResponse, userResponse]); // This will log the responses as an array
+     
+      return [coursesResponse, userResponse]; // Return responses as an array
+    }))
+    .catch(error => {
+      console.error("Error", error); // Proper error logging
+      return error; // You might want to handle this differently depending on your error handling strategy
+    });
 }
 
 export const getCoursesDetails =  (id) => {
-  console.log(id)
   return axios.get(API_BASE_URL+'courses/'+id).then((resp)=>{
      console.log(resp)
      return resp.data
-   }).catch(
-     console.log("Error")
-   )
+   }).catch(error => {
+    console.error("Error", error); // Proper error logging
+    return error; // You might want to handle this differently depending on your error handling strategy
+  });
 }
 
 export const signupUser = async (userData) => {

@@ -23,11 +23,17 @@ function App() {
           <Route path="/home" Component={() => <FeaturedCourses />} />
           <Route path="/login" Component={() => <Login />}></Route>
           <Route path="/signup" Component={() => <Signup />}></Route>
-          <Route path="/feedback" Component={() => <Feedback />}></Route>
           {isAuthenticated && (<Route
             path="/courses/:id"
             Component={()=><CoursePage/>}
           />)}
+          {isAuthenticated && (<Route
+            path="/feedback"
+            Component={()=><Feedback/>}
+          />)}
+          {!isAuthenticated && (
+            <Route exact path="/*" Component={() => <Login />}></Route>
+          )}
         </Routes>
         <Footer />
       </div>
