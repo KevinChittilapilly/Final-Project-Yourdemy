@@ -24,6 +24,7 @@ function Signup() {
         const response = await axios.post("http://127.0.0.1:8000/signup/", userData);
         console.log(response.data);
         navigate('/')
+        sessionStorage.setItem("isAuthenticated", true)
         //TODO remove login signup button and show 'Wecome user name'
       } catch (error) {
         console.error("Signup error:", error.response.data);

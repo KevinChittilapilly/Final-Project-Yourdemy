@@ -12,12 +12,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 
 function App() {
-
-  // const [clickedId, setClickedId] = useState(null);
-
-  // const handleButtonClick = (id) => {
-  //   setClickedId(id);
-  // };
+  let isAuthenticated = sessionStorage.getItem("isAuthenticated");
 
   return (
     <BrowserRouter>
@@ -29,10 +24,10 @@ function App() {
           <Route path="/login" Component={() => <Login />}></Route>
           <Route path="/signup" Component={() => <Signup />}></Route>
           <Route path="/feedback" Component={() => <Feedback />}></Route>
-          <Route
+          {isAuthenticated && (<Route
             path="/courses/:id"
             Component={()=><CoursePage/>}
-          />
+          />)}
         </Routes>
         <Footer />
       </div>

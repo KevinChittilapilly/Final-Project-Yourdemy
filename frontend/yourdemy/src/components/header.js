@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const navigate = useNavigate()
+  let isAuthenticated = sessionStorage.getItem("isAuthenticated")
 
   const onHeaderClick = (link) =>{
     navigate("/"+link)
@@ -24,10 +25,15 @@ function Header() {
             <li>
               <span className="material-symbols-outlined"> shopping_cart </span>
             </li>
-            <span id="userid">
+            {!isAuthenticated && (<span id="userid">
               <li><a onClick={()=>onHeaderClick('login')}>Login</a></li>
               <li><a onClick={()=>onHeaderClick('signup')}>Sign Up</a></li>
+            </span>)}
+            {isAuthenticated && (
+              <span id="userid">
+              <li><label>{sessionStorage.getItem("userEmail")}</label></li>
             </span>
+            )}
           </div>
         </ul>
       </nav>
