@@ -1,44 +1,40 @@
 // App.js
-import React  from "react";
-
-import Header from "./components/header";
-import CoursePage from "./components/coursePage";
-import Footer from "./components/footer";
-import Login from "./components/login";
-import Signup from "./components/signup";
-import Feedback from "./components/feedback";
-import FeaturedCourses from "./components/featuredCourses";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/header';
+import CoursePage from './components/coursePage';
+import Footer from './components/footer';
+import Login from './components/login';
+import Signup from './components/signup';
+import Feedback from './components/feedback';
+import FeaturedCourses from './components/featuredCourses';
+import AuthenticatedRoute from './components/authenticatedRoute';
 
 function App() {
-  let isAuthenticated = sessionStorage.getItem("isAuthenticated");
-
-  return (
-    <BrowserRouter>
-      <div>
-        <Header />
-        <Routes>
-          <Route exact path="/" Component={() => <FeaturedCourses />}></Route>
-          <Route path="/home" Component={() => <FeaturedCourses />} />
-          <Route path="/login" Component={() => <Login />}></Route>
-          <Route path="/signup" Component={() => <Signup />}></Route>
-          {isAuthenticated && (<Route
-            path="/courses/:id"
-            Component={()=><CoursePage/>}
-          />)}
-          {isAuthenticated && (<Route
-            path="/feedback"
-            Component={()=><Feedback/>}
-          />)}
-          {!isAuthenticated && (
-            <Route exact path="/*" Component={() => <Login />}></Route>
-          )}
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <div>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<FeaturedCourses />} />
+                    <Route path="/home" element={<FeaturedCourses />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/courses/:id" element={
+                        <AuthenticatedRoute>
+                            <CoursePage />
+                        </AuthenticatedRoute>
+                    } />
+                    <Route path="/feedback" element={
+                        <AuthenticatedRoute>
+                            <Feedback />
+                        </AuthenticatedRoute>
+                    } />
+                </Routes>
+                <Footer />
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;
