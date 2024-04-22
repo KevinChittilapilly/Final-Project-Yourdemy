@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import { handleInteractiveMode, handleLogOut } from "./util";
 
 function MenuHeader(props) {
-  const interactiveMode = props.userData?.interactive_mode||false
+  const mode = JSON.parse(sessionStorage.getItem("userData"))?.interactive_mode
+  const [interactive_mode,setInteractiveMode] = useState(mode)
+
+  const handleInteractiveModeToggle = () => {
+    setInteractiveMode(!interactive_mode)
+    handleInteractiveMode()
+  }
   return (
     <div className="menu-header-div">
-      {console.log(props.userData)}
       <span class="material-symbols-outlined" onClick={()=>props.handleMenuOpen()} >close</span>
       <div className="right-items">
         <>
           <h3>Menu</h3>
           <div id="interactive-mode">
             <a>Interactive Mode</a>
-           {interactiveMode?<span className="material-symbols-outlined"> toggle_on </span>:<span className="material-symbols-outlined"> toggle_off </span>} 
+           {interactive_mode?<span className="material-symbols-outlined"  onClick={()=>handleInteractiveModeToggle()}> toggle_on </span>:<span className="material-symbols-outlined" onClick={()=>handleInteractiveModeToggle()}> toggle_off </span>} 
           </div>
           <div style={{display:'flex',justifyContent:'center'}}>
             <a onClick={() => props.onHeaderClick("feedback")}>Feedback</a>
@@ -20,10 +26,12 @@ function MenuHeader(props) {
             <span className="material-symbols-outlined"> shopping_cart </span>
           </div>
           {props.isAuthenticated?
-          
+          <>
           <span id="userid">
              {sessionStorage.getItem("userEmail")}
             </span>
+            <div style = {{marginTop:'20px',display:'flex',justifyContent:'center'}}onClick={()=>handleLogOut()}>Log Out</div>
+            </>
           :<span id="userid">
             <div>
               <a onClick={() => props.onHeaderClick("login")}>Login</a>

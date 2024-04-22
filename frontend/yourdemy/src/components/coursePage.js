@@ -18,9 +18,10 @@ function CoursePage() {
   const [courseCompleted, setCourseCompleted] = useState(false)
   const [showQuizPopover, setShowQuizPopover] = useState(null)
   const navigate = useNavigate()
-  const quiz_location = "End of Course"
+  
   const { state } = useLocation();
   const course_id = state.course_id || "";
+  const quiz_location = state?.userData?.quiz_location
   const isMobile = useMobile();
   const [sidebaropen, setSidebarOpen] = useState(!isMobile);
   useEffect(() => {
@@ -72,6 +73,22 @@ function CoursePage() {
       })
       
       questions.length>0 && setShowQuizPopover(questions)
+    } else if(quiz_location==quizLocation.endofLecture && activeCourse && activeSecID){
+      let questions = []
+      console.log(activeCourse,activeSecID,courseDetails)
+      let curr_id = activeCourse.order-1
+      let curr_sec = activeSecID-1
+      if(curr_id==0 && curr_sec==0) {
+        return 
+      } else {
+        const lastVideo = courseDetails.sections[curr_sec-1]?.video_lectures.length
+        if (curr_id==0) {
+          questions = courseDetails.sections[curr_sec-1]?.video_lectures[lastVideo-1]?.quiz_questions
+        } else {
+          questions = courseDetails.sections[curr_sec]?.video_lectures[curr_id-1]?.quiz_questions
+        }
+      }
+      questions?.length>0 && setShowQuizPopover(questions)
     }
   },[activeCourse,activeSecID,courseCompleted])
 
@@ -87,7 +104,7 @@ function CoursePage() {
       <div
         className="course-page"
         style={sidebaropen ? { flex: "0.8" } : { flex: "1" }}
-      >
+      >{console.log(state)}
         <VideoWrapper course ={activeCourse}/>
         <Dashboard
           about={courseDetails.about}

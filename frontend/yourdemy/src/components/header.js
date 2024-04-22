@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useMobile from "../hooks/useMobile";
 import MenuHeader from "./menuHeader";
+import { handleInteractiveMode, handleLogOut } from "./util";
 
 function Header() {
   const navigate = useNavigate()
@@ -15,6 +16,13 @@ function Header() {
   const onHeaderClick = (link) =>{
     setMenuOpen(false)
     navigate("/"+link)
+  }
+  const mode = JSON.parse(sessionStorage.getItem("userData"))?.interactive_mode
+  const [interactive_mode,setInteractiveMode] = useState(mode)
+
+  const handleInteractiveModeToggle = () => {
+    setInteractiveMode(!interactive_mode)
+    handleInteractiveMode()
   }
   if (isMobile) {
     return (
@@ -33,9 +41,7 @@ function Header() {
               <span class="material-symbols-outlined" onClick={()=>handleMenuOpen()}>menu</span>
             </div>
 
-            <div className="search-container">
-              <input type="text" placeholder="Search.." name="search" />
-            </div>
+            
           </ul>
         </nav>
         {menuOpen && <MenuHeader userData={userData} isAuthenticated={isAuthenticated} handleMenuOpen={handleMenuOpen} onHeaderClick={onHeaderClick}/>}
@@ -48,13 +54,12 @@ function Header() {
         <ul>
           <li><a onClick={()=>onHeaderClick('home')} style={{ color: 'blueviolet', fontSize: '25px' }}>YourDemy</a></li>
           <li><a onClick={()=>onHeaderClick('feedback')}>Feedback</a></li>
-          <div className="search-container">
-            <input type="text" placeholder="Search.." name="search" />
-          </div>
+          
           <div className="right-items">
             <li id="interactive-mode">
               <a>Interactive Mode</a>
-              <span className="material-symbols-outlined"> toggle_off </span>
+              {interactive_mode?<span className="material-symbols-outlined"  onClick={()=>handleInteractiveModeToggle()}> toggle_on </span>:<span className="material-symbols-outlined" onClick={()=>handleInteractiveModeToggle()}> toggle_off </span>} 
+         
             </li>
             <li>
               <span className="material-symbols-outlined"> shopping_cart </span>
@@ -64,9 +69,13 @@ function Header() {
               <li><a onClick={()=>onHeaderClick('signup')}>Sign Up</a></li>
             </span>)}
             {isAuthenticated && (
+              <>
               <span id="userid">
               <li><label>{sessionStorage.getItem("userEmail")}</label></li>
             </span>
+
+            <div style={{cursor:'pointer'}}onClick={()=>handleLogOut()}>Log Out</div>
+            </>
             )}
           </div>
         </ul>

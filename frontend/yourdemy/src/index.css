@@ -96,6 +96,9 @@ nav ul li a {
   text-align: center;
   min-width: 300px;
   width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
 }
 /* 
 .search-container form {
@@ -417,7 +420,7 @@ label{
 }
 @media screen and (max-width: 600px) {
   .container{
-    width: 60%;
+    width: 80%;
   }
   nav .right-items {
     justify-content: start;
@@ -554,6 +557,29 @@ label{
   .course-item .price-div .go-to-course {
     margin-left: auto;
     margin-right: auto;
+  }
+  .course-item .price-div{
+    display: flex;
+    flex-direction: column;
+  }
+  .search-container{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+  }
+  #quizOptions {
+    width: 100%;
+  }
+  .signup button{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .signup input{
+    width: initial;
+  }
+  .login button{
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 .sidebar-open{

@@ -62,3 +62,15 @@ export const feedbackUser = async (userData) => {
     throw error.response.data;
   }
 }
+
+export const saveUser = (id, userData) => {
+  return axios.put(API_BASE_URL + 'save/' + id + '/', userData)
+    .then(response => {
+      console.log("Response:", response);
+      return response.data; // Returning the updated data
+    })
+    .catch(error => {
+      console.error("Error in updating user:", error);
+      return error; // You might want to handle this differently depending on your error handling strategy
+    });
+}

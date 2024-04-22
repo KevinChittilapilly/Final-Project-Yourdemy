@@ -14,7 +14,6 @@ class UserView(APIView):
     def post(self, request):
         data = request.data
         serializer = UserSerializer(data=data)
-        print("data", data, serializer.is_valid(), serializer.errors)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse("User Added Successfully", safe=False)
@@ -23,7 +22,6 @@ class UserView(APIView):
     def get(self, request,id=None):
         if(id==None):
             data = User.objects.all()
-            print(data)
             serialaizer = UserSerializer(data, many=True)
 
             return Response(serialaizer.data)
@@ -36,15 +34,24 @@ class UserView(APIView):
             except User.DoesNotExist:
                 # Return an error response if no user is found
                 return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-
+    def put(self, request, id=None):
+        if id is not None:
+            try:
+                user = User.objects.get(pk=id)
+                serializer = UserSerializer(user, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            except User.DoesNotExist:
+                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Invalid Request: No ID provided'}, status=status.HTTP_400_BAD_REQUEST)
     
 class LoginView(APIView):
     def post(self, request):
         email = request.data.get("email")
         password = request.data.get("password")
 
-        print("Received login request for email:", email)
-        print("Received login request with password:", password)
 
         user = User.objects.get(email="elnu@purdue.edu")
         if user is not None and user.password == password:
