@@ -20,7 +20,10 @@ function FeaturedCourses() {
     }
     return stars;
   }
-
+  const getStr = (e) => {
+    if (typeof(e)=="string") return e
+    return e.toString()
+  }
   return (
     <>
     <div class="banner-container">
@@ -31,10 +34,11 @@ function FeaturedCourses() {
       <h1>Featured Courses</h1>
       <div id="courses-list">
         {courses?.map((course)=>{
-          if (true) {
+          if (false) {
             return (
               <div className='course-item'>
-              <img src={course.img_url} class="course_img"/>
+                {console.log((course.image_link))}
+              <img src={getStr(course.image_link)}  class="course_img"/>
         <h4 class="course-title">{course.name}</h4>
         <div class="bottom-div">
         <div class="title">
@@ -82,9 +86,8 @@ function FeaturedCourses() {
                 course_id : course.course_id
               }
             })}>
-              <img src="https://drive.google.com/thumbnail?id=18ygY2cG3oEf5sbU0wXhrj90Vkdn3tCEH" alt='course_img' className="course_img"/>
-              {/* <img src="https://drive.google.com/file/d/18ygY2cG3oEf5sbU0wXhrj90Vkdn3tCEH/" alt="Descriptive Text"  className="course_img"/>
-              https://drive.google.com/file/d/18ygY2cG3oEf5sbU0wXhrj90Vkdn3tCEH/view?usp=sharing */}
+                        
+              <img src={getStr(course.image_link)} alt='course_img' className="course_img"/>
 
               <h4 className="course-title">{course.title}</h4>
               <div className="bottom-div">
