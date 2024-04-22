@@ -32,7 +32,6 @@ class UserView(APIView):
             try:
                 user = User.objects.get(pk=id)
                 serializer = UserSerializer(user)
-                del serialaizer.data.password
                 return Response(serializer.data)
             except User.DoesNotExist:
                 # Return an error response if no user is found
