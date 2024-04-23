@@ -53,14 +53,15 @@ function Header() {
       <nav>
         <ul>
           <li><a onClick={()=>onHeaderClick('home')} style={{ color: 'blueviolet', fontSize: '25px' }}>YourDemy</a></li>
+          <li><a onClick={()=>onHeaderClick('home')}>Home</a></li>
           <li><a onClick={()=>onHeaderClick('feedback')}>Feedback</a></li>
-          
+          <li><a onClick={()=>onHeaderClick('rewards')}>Rewards</a></li>
           <div className="right-items">
-            <li id="interactive-mode">
+            {isAuthenticated &&<li id="interactive-mode">
               <a>Interactive Mode</a>
               {interactive_mode?<span className="material-symbols-outlined"  onClick={()=>handleInteractiveModeToggle()}> toggle_on </span>:<span className="material-symbols-outlined" onClick={()=>handleInteractiveModeToggle()}> toggle_off </span>} 
          
-            </li>
+            </li>}
             <li>
               <span className="material-symbols-outlined"> shopping_cart </span>
             </li>

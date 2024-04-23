@@ -20,7 +20,6 @@ function FeedbackForm() {
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/feedback/", feedbackData);
-      console.log(response.data);
       // Handle successful feedback submission
       alert("Feedback submitted successfully!");
     } catch (error) {

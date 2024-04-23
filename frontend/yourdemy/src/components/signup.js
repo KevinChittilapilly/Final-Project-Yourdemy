@@ -23,7 +23,6 @@ function Signup() {
   
       try {
         const response = await axios.post("http://127.0.0.1:8000/signup/", userData);
-        console.log(response.data);
         sessionStorage.setItem("isAuthenticated", true);
         sessionStorage.setItem("userEmail", userData.email);
         sessionStorage.setItem("userData", JSON.stringify(response.data.user));
@@ -89,7 +88,7 @@ function Signup() {
               <OverlayTrigger
                 placement="right"
                 overlay={interactiveModeTooltip}
-                trigger={['click']}
+                trigger={['hover','click']}
               >
                 <div style={{ cursor: "pointer" }}>                
                 <span className="material-symbols-outlined"> question_mark </span>

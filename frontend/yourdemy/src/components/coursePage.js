@@ -75,7 +75,6 @@ function CoursePage() {
       questions.length>0 && setShowQuizPopover(questions)
     } else if(quiz_location==quizLocation.endofLecture && activeCourse && activeSecID){
       let questions = []
-      console.log(activeCourse,activeSecID,courseDetails)
       let curr_id = activeCourse.order-1
       let curr_sec = activeSecID-1
       if(curr_id==0 && curr_sec==0) {
@@ -104,7 +103,7 @@ function CoursePage() {
       <div
         className="course-page"
         style={sidebaropen ? { flex: "0.8" } : { flex: "1" }}
-      >{console.log(state)}
+      >
         <VideoWrapper course ={activeCourse}/>
         <Dashboard
           about={courseDetails.about}

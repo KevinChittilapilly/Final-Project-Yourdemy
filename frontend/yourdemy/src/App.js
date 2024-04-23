@@ -9,6 +9,7 @@ import Signup from './components/signup';
 import Feedback from './components/feedback';
 import FeaturedCourses from './components/featuredCourses';
 import AuthenticatedRoute from './components/authenticatedRoute';
+import Rewards from './components/rewards';
 
 function App() {
     return (
@@ -30,7 +31,13 @@ function App() {
                             <Feedback />
                         </AuthenticatedRoute>
                     } />
+                    <Route path="/rewards" element={
+                        <AuthenticatedRoute>
+                            <Rewards />
+                        </AuthenticatedRoute>
+                    } />
                 </Routes>
+                
                 <Footer />
             </div>
         </BrowserRouter>

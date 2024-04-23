@@ -17,7 +17,6 @@ function Popover(props) {
         </div>
       );
     } else if (type === "quizes") {
-      console.log("here", props);
       const cardHTML = [];
       cardHTML.push(
         <>

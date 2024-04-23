@@ -4,7 +4,7 @@ import { handleInteractiveMode, handleLogOut } from "./util";
 function MenuHeader(props) {
   const mode = JSON.parse(sessionStorage.getItem("userData"))?.interactive_mode
   const [interactive_mode,setInteractiveMode] = useState(mode)
-
+  
   const handleInteractiveModeToggle = () => {
     setInteractiveMode(!interactive_mode)
     handleInteractiveMode()
@@ -15,12 +15,18 @@ function MenuHeader(props) {
       <div className="right-items">
         <>
           <h3>Menu</h3>
-          <div id="interactive-mode">
+          {props.isAuthenticated && <div id="interactive-mode">
             <a>Interactive Mode</a>
            {interactive_mode?<span className="material-symbols-outlined"  onClick={()=>handleInteractiveModeToggle()}> toggle_on </span>:<span className="material-symbols-outlined" onClick={()=>handleInteractiveModeToggle()}> toggle_off </span>} 
+          </div>}
+          <div style={{display:'flex',justifyContent:'center'}}>
+            <a onClick={() => props.onHeaderClick("home")}>Home</a>
           </div>
           <div style={{display:'flex',justifyContent:'center'}}>
             <a onClick={() => props.onHeaderClick("feedback")}>Feedback</a>
+          </div>
+          <div style={{display:'flex',justifyContent:'center'}}>
+            <a onClick={() => props.onHeaderClick("rewards")}>Rewards</a>
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <span className="material-symbols-outlined"> shopping_cart </span>

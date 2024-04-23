@@ -10,7 +10,6 @@ export const getCourses =  () => {
     ]
     return axios.all(request)
     .then(axios.spread((coursesResponse, userResponse) => {
-      console.log([coursesResponse, userResponse]); // This will log the responses as an array
      
       return [coursesResponse, userResponse]; // Return responses as an array
     }))
@@ -22,7 +21,6 @@ export const getCourses =  () => {
 
 export const getCoursesDetails =  (id) => {
   return axios.get(API_BASE_URL+'courses/'+id).then((resp)=>{
-     console.log(resp)
      return resp.data
    }).catch(error => {
     console.error("Error", error); // Proper error logging
@@ -33,7 +31,6 @@ export const getCoursesDetails =  (id) => {
 export const signupUser = async (userData) => {
   try {
     const response = await axios.post(API_BASE_URL + 'signup/', userData);
-    console.log(response.data);
     return response.data;
   } catch(error) {
     console.error('Signup error', error.response.data);
@@ -44,7 +41,6 @@ export const signupUser = async (userData) => {
 export const loginUser = async (userData) => {
   try {
     const response = await axios.post(API_BASE_URL + 'login/', userData);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Login error:", error.response.data);
@@ -55,7 +51,6 @@ export const loginUser = async (userData) => {
 export const feedbackUser = async (userData) => {
   try {
     const response = await axios.post(API_BASE_URL + 'feedback/', userData);
-    console.log(response.data);
     return response.data;
   } catch(error) {
     console.error('Feedback error', error.response.data);
@@ -66,7 +61,6 @@ export const feedbackUser = async (userData) => {
 export const saveUser = (id, userData) => {
   return axios.put(API_BASE_URL + 'save/' + id + '/', userData)
     .then(response => {
-      console.log("Response:", response);
       return response.data; // Returning the updated data
     })
     .catch(error => {
