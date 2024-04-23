@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("")
   const navigate  = useNavigate()
 
   const handleLogin = async (e) => {
@@ -27,7 +28,8 @@ function Login() {
     } catch (error) {
       // console.error("Login error:", error.response);
       // Handle login error
-      console.log("Login error")
+      console.log("Login error",error,error.response.data.error)
+      setErrorMsg(error.response.data.error)
     }
   };
 
@@ -56,6 +58,7 @@ function Login() {
         <br />
         <button type="button" onClick={()=>navigate('/signup')}>Sign Up</button>
       </form>
+      {errorMsg && <div className="error-msg">{errorMsg}</div>}
     </div>
     </div>
   );

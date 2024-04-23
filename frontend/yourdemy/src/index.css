@@ -715,3 +715,8 @@ label{
 .rewards-page{
   height: 100vh;
 }
+.login,.signup .error-msg{
+  font-weight: bold;
+  color: red;
+  font-size: 20px;
+}

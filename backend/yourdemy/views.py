@@ -16,8 +16,8 @@ class UserView(APIView):
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse("User Added Successfully", safe=False)
-        return JsonResponse("Failed to Add User", safe=False)
+            return Response(serializer.data)
+        return Response({'error': 'User already exists'}, status=status.HTTP_404_NOT_FOUND)
 
     def get(self, request,id=None):
         if(id==None):
@@ -52,21 +52,24 @@ class LoginView(APIView):
         email = request.data.get("email")
         password = request.data.get("password")
 
+        print("Email ",email)
+        try:
+            user = User.objects.get(email=email)
+            print("User",user)
+            if user is not None and user.password == password:
+                print("Successful Login!")
+                serializer = UserSerializer(user)
+                return Response({"message": "Login successful","user":serializer.data}, status=status.HTTP_200_OK)
 
-        user = User.objects.get(email="elnu@purdue.edu")
-        if user is not None and user.password == password:
-            print("Successful Login!")
-            serializer = UserSerializer(user)
-            return Response({"message": "Login successful","user":serializer.data}, status=status.HTTP_200_OK)
+            elif user is not None and user.password != password:
+                print("Incorrect password!")
+                return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
-        elif user is not None and user.password != password:
-            print("Incorrect password!")
-            return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-
-        else:
-            print("Email doesn't exist, Please signup.")
-            return Response({"error": "Email doesn't exist, Please signup."}, status=status.HTTP_401_UNAUTHORIZED)
-
+            else:
+                print("Email doesn't exist, Please signup.")
+                return Response({"error": "Email doesn't exist, Please signup."}, status=status.HTTP_401_UNAUTHORIZED)
+        except User.DoesNotExist:
+            return Response({'error': 'Incorrect Email or Password'}, status=status.HTTP_404_NOT_FOUND)
                 
         # user = authenticate(request.data, email=email, password=password)
         # if user is not None:

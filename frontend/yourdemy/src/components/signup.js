@@ -10,6 +10,7 @@ function Signup() {
     const [interactiveMode, setInteractiveMode] = useState(false);
     const [specialOffers, setSpecialOffers] = useState(false);
     const navigate = useNavigate();
+    const [errorMsg, setErrorMsg] = useState("")
 
     const handleSignup = async (e) => {
       e.preventDefault();
@@ -25,11 +26,12 @@ function Signup() {
         const response = await axios.post("http://127.0.0.1:8000/signup/", userData);
         sessionStorage.setItem("isAuthenticated", true);
         sessionStorage.setItem("userEmail", userData.email);
-        sessionStorage.setItem("userData", JSON.stringify(response.data.user));
+        sessionStorage.setItem("userData", JSON.stringify(response.data));
         navigate("/home");
       } catch (error) {
-        console.error("Signup error:", error.response.data);
         // Handle signup error
+        console.log("Signup error",error,error.response.data.error)
+        setErrorMsg(error.response.data.error)
       }
     };
 
@@ -108,6 +110,7 @@ function Signup() {
             <button type="submit">Sign Up</button>
             <br />
             <button type="button" onClick={() => navigate('/login')}>Login</button>
+            {errorMsg && <div className="error-msg">{errorMsg}</div>}
           </form>
         </div>
     );
