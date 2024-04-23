@@ -22,6 +22,7 @@ function Login() {
       sessionStorage.setItem("isAuthenticated", true);
       sessionStorage.setItem("userEmail", userData.email)
       sessionStorage.setItem("userData",JSON.stringify(response.data.user))
+      window.dispatchEvent(new Event("userData_Changed"));
       navigate('/home')
       //TODO remove login signup button and show 'Wecome user name'
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useMobile from "../hooks/useMobile";
 import MenuHeader from "./menuHeader";
@@ -11,19 +11,36 @@ function Header() {
   const handleMenuOpen = () => {
     setMenuOpen(!menuOpen)
   }
+  const user = JSON.parse(sessionStorage.getItem("userData"));
+  const [userData, setUserData] = useState(user);
   const isAuthenticated = sessionStorage.getItem("isAuthenticated")
-  const userData = JSON.parse(sessionStorage.getItem("userData"))
   const onHeaderClick = (link) =>{
     setMenuOpen(false)
     navigate("/"+link)
   }
-  const mode = JSON.parse(sessionStorage.getItem("userData"))?.interactive_mode
+  const mode = JSON.parse(sessionStorage.getItem("userData"))?.interactive_mode 
   const [interactive_mode,setInteractiveMode] = useState(mode)
 
   const handleInteractiveModeToggle = () => {
     setInteractiveMode(!interactive_mode)
     handleInteractiveMode()
   }
+  useEffect(() => {
+    const handleInteractiveModeChange = () => {
+      setUserData(JSON.parse(sessionStorage.getItem("userData")));
+      setInteractiveMode(JSON.parse(sessionStorage.getItem("userData"))?.interactive_mode)
+    };
+
+    window.addEventListener("userData_Changed", handleInteractiveModeChange);
+
+    return () => {
+      window.removeEventListener(
+        "userData_Changed",
+        handleInteractiveModeChange
+      );
+    };
+  }, []);
+
   if (isMobile) {
     return (
       <header>
@@ -59,7 +76,9 @@ function Header() {
           <div className="right-items">
             {isAuthenticated &&<li id="interactive-mode">
               <a>Interactive Mode</a>
-              {interactive_mode?<span className="material-symbols-outlined"  onClick={()=>handleInteractiveModeToggle()}> toggle_on </span>:<span className="material-symbols-outlined" onClick={()=>handleInteractiveModeToggle()}> toggle_off </span>} 
+              {console.log(interactive_mode)}
+              {interactive_mode?<span className="material-symbols-outlined"  onClick={()=>handleInteractiveModeToggle()}> toggle_on </span>:
+              <span className="material-symbols-outlined" onClick={()=>handleInteractiveModeToggle()}> toggle_off </span>} 
          
             </li>}
             <li>

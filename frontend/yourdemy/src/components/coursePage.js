@@ -22,6 +22,8 @@ function CoursePage() {
   const { state } = useLocation();
   const course_id = state.course_id || "";
   const quiz_location = state?.userData?.quiz_location
+  const interactive_mode = state?.userData?.interactive_mode
+  const duration = state?.userData?.duration
   const isMobile = useMobile();
   const [sidebaropen, setSidebarOpen] = useState(!isMobile);
   useEffect(() => {
@@ -104,7 +106,7 @@ function CoursePage() {
         className="course-page"
         style={sidebaropen ? { flex: "0.8" } : { flex: "1" }}
       >
-        <VideoWrapper course ={activeCourse}/>
+        <VideoWrapper course ={activeCourse} duration={duration} interactive_mode={interactive_mode}/>
         <Dashboard
           about={courseDetails.about}
           description={courseDetails.description}

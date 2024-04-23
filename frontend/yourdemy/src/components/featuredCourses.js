@@ -82,7 +82,7 @@ function FeaturedCourses() {
                     src= {getStr(course.image_link)}
                     class="course_img"
                   />
-                  <h4 class="course-title">{course.name}</h4>
+                  <h4 class="course-title">{course.title}</h4>
                   <div class="bottom-div">
                     <div class="title">
                       <p class="instructer">Instructor: {course.instructor}</p>

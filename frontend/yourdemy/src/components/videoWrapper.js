@@ -43,10 +43,10 @@ function VideoWrapper(props) {
   }, [course.video_url]); // Effect runs when course.video_url changes.
 
   const onPlayerStateChange = (event) => {
-    if (event.data === window.YT.PlayerState.PLAYING) {
+    if (event.data === window.YT.PlayerState.PLAYING && props.interactive_mode) {
       const timer = setTimeout(() => {
         setShowPopup(true);
-      }, 3000); // Set a timer to show the popup after 5 minutes
+      }, (props.duration*1000)); // Set a timer to show the popup after 5 minutes
 
       return () => clearTimeout(timer);
     }
